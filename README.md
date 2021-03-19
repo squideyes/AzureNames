@@ -72,7 +72,7 @@ Invalid requests (i.e. requests with an invlid NameKind) will return a BadReques
 }**
 
 
-Please feel free to download the source code from GitHub (https://github.com/AzureEnthusiast/AzureNames) and then to use the project as you see fit.  Better still, fork the project and contribute your own improvements via Pull Requests.  If you need any help in working with the code, please feel free to reach out to me at [louis_berman@epam.com](mailto:louis_berman@epam.com)
+Please feel free to download the source code from GitHub (https://github.com/squideyes/AzureNames) and then to use the project as you see fit.  Better still, fork the project and contribute your own improvements via Pull Requests.  If you need any help in working with the code, please feel free to reach out to me at [louis_berman@epam.com](mailto:louis_berman@epam.com)
 
 Enjoy...
 
