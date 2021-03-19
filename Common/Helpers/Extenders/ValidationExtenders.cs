@@ -20,7 +20,6 @@
 // OTHER DEALINGS IN THE SOFTWARE.
 #endregion
 
-using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
@@ -28,16 +27,6 @@ namespace AzureNames.Common.Helpers
 {
     public static class ValidationExtenders
     {
-        public static bool IsValidValue<T>(this ValidationAttribute attrib, T value)
-        {
-            if (attrib == null)
-                throw new ArgumentNullException(nameof(attrib));
-
-            var result = attrib.GetValidationResult(value, new ValidationContext(value));
-
-            return result == ValidationResult.Success;
-        }
-
         public static ValidationResult MustBeSetTo(
            this ValidationContext context, string format, params object[] args)
         {
@@ -46,35 +35,6 @@ namespace AzureNames.Common.Helpers
             return new ValidationResult(
                 $"The {context.MemberName} field must be set to {suffix}.",
                 new List<string> { context.MemberName });
-        }
-
-        public static void Validate<T>(this T instance, bool allProperties = false) =>
-            Validator.ValidateObject(instance, new ValidationContext(instance), allProperties);
-
-        public static bool TryValidate<T>(
-            this TimeOfDayAttribute instance, out List<ValidationResult> results)
-        {
-            return instance.TryValidate<T>(true, out results);
-        }
-
-        public static bool TryValidate<T>(this TimeOfDayAttribute instance, 
-            bool allProperties, out List<ValidationResult> results)
-        {
-            results = new List<ValidationResult>();
-
-            return Validator.TryValidateObject(
-                instance, new ValidationContext(instance), results, allProperties);
-        }
-
-        public static ValidationResult IsValidStruct<T>(
-            this ValidationContext context, object value, Func<T, bool> isValid, string message)
-        {
-            if (value is null)
-                return ValidationResult.Success;
-            else if (value is T instance && !isValid(instance))
-                return context.MustBeSetTo(message);
-            else
-                return ValidationResult.Success;
         }
     }
 }

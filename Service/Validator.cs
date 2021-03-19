@@ -29,7 +29,7 @@ using System;
 using System.Linq;
 using static Microsoft.Azure.WebJobs.Extensions.Http.AuthorizationLevel;
 
-namespace Service
+namespace AzureNames.Service
 {
     public class Validator
     {

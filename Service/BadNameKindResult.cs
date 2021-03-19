@@ -26,8 +26,9 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 using System.Collections.Generic;
 using System.Linq;
+using AzureNames.Common.Helpers;
 
-namespace Service
+namespace AzureNames.Service
 {
     public class BadNameKindResult
     {

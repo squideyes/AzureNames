@@ -22,31 +22,11 @@
 
 using System;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace AzureNames.Common.Helpers
 {
     public static class IEnumerableExtenders
     {
-        public static void ForEach<T>(this IEnumerable<T> items, Action<T> action)
-        {
-            foreach (var item in items)
-                action(item);
-        }
-
-        public static bool IsNullOrEmpty<T>(this IEnumerable<T> items) =>
-            (items == null) || (!items.Any());
-
-        public static bool IsUnique<T>(this IEnumerable<T> values)
-        {
-            var diffChecker = new HashSet<T>();
-
-            return values.All(diffChecker.Add);
-        }
-
-        public static bool SamePropertyValue<T, R>(this IEnumerable<T> items, Func<T, R> getValue) =>
-            items.Select(i => getValue(i)).Distinct().Count() < 2;
-
         public static bool HasNonDefaultElements<T>(
             this IEnumerable<T> items, Func<T, bool> isValid = null)
         {
@@ -80,56 +60,6 @@ namespace AzureNames.Common.Helpers
             }
 
             return count >= minElements;
-        }
-
-        public static Dictionary<K, List<V>> ToListMap<K, V>(
-            this IEnumerable<V> items, Func<V, K> getKey)
-        {
-            var dict = new Dictionary<K, List<V>>();
-
-            foreach (var item in items)
-            {
-                var key = getKey(item);
-
-                if (!dict.ContainsKey(key))
-                    dict.Add(key, new List<V>());
-
-                dict[key].Add(item);
-            }
-
-            return dict;
-        }
-
-        public static IEnumerable<IEnumerable<T>> Chunked<T>(
-            this IEnumerable<T> enumerable, int chunkSize)
-        {
-            if (enumerable == null)
-                throw new ArgumentNullException(nameof(enumerable));
-
-            if (chunkSize < 1)
-                throw new ArgumentOutOfRangeException(nameof(chunkSize));
-
-            using var e = enumerable.GetEnumerator();
-
-            while (e.MoveNext())
-            {
-                var remaining = chunkSize;
-
-                var innerMoveNext = new Func<bool>(() => --remaining > 0 && e.MoveNext());
-
-                yield return e.GetChunk(innerMoveNext);
-
-                while (innerMoveNext()) ;
-            }
-        }
-
-        private static IEnumerable<T> GetChunk<T>(this IEnumerator<T> e, Func<bool> innerMoveNext)
-        {
-            do
-            {
-                yield return e.Current;
-            }
-            while (innerMoveNext());
         }
     }
 }

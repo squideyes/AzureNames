@@ -25,7 +25,7 @@ supplied within the validated names.  To take a few examples:
 |ResourceGroup|{NameCode}{BizUnit}{MiscText}{Environ}{TwoDigit?}|rg-mktg-sharepoint-prd-01|
 |WindowsVM|Azure Naming-Rules Only!!|vmnavigator001|
 |LinuxVM|{NameCode}{BizUnit}{MiscText}{Region}{Environ}{ThreeDigit?}|vm-corp-navigator-westus-dev-001|
-|StorageAccount|"^[a-z][a-z0-9]{2,23}$|navigatordata001|
+|StorageAccount|^[a-z][a-z0-9]{2,23}$|navigatordata001|
 |VirtualNetwork|{NameCode}{Environ}{Region}{ThreeDigit?}|vnet-stg-eastus2-001|
 |Subnet|{NameCode}{Environ}{Region}{ThreeDigit?}|snet-tst-eastus2-001|
 |NetworkInterface|{NameCode}{TwoDigit}{MiscText}{Environ}{ThreeDigit?}|nic-01-dc1-stg-001|
