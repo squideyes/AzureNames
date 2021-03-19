@@ -1,0 +1,60 @@
+﻿#region Copyright & License
+// Copyright © 2021 Louis S. Berman
+//
+// Permission is hereby granted, free of charge, to any person obtaining a 
+// copy of this software and associated documentation files (the "Software"),
+// to deal in the Software without restriction, including without limitation
+// the rights to use, copy, modify, merge, publish, distribute, sublicense,
+// and/or sell copies of the Software, and to permit persons to whom the 
+// Software is furnished to do so, subject to the following conditions:
+// 
+// The above copyright notice and this permission notice shall be included 
+// in all copies or substantial portions of the Software.
+// 
+// THE SOFTWARE IS PROVIDED “AS IS”, WITHOUT WARRANTY OF ANY KIND, EXPRESS
+// OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+// FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL 
+// THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR
+// OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
+// ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR 
+// OTHER DEALINGS IN THE SOFTWARE.
+#endregion
+
+using System;
+
+namespace AzureNames.Common.Helpers
+{
+    public struct MinMax<T> : IEquatable<MinMax<T>>
+        where T : struct, IComparable<T>
+    {
+        public MinMax(T minValue, T maxValue)
+        {
+            if (minValue.CompareTo(maxValue) > 0)
+                throw new ArgumentOutOfRangeException(nameof(maxValue));
+
+            MinValue = minValue;
+            MaxValue = maxValue;
+        }
+
+        public T MinValue { get; }
+        public T MaxValue { get; }
+
+        public override string ToString() => $"{MinValue}|{MaxValue}";
+
+        public static MinMax<T> Parse(string value)
+        {
+            var fields = value.Split("<=>");
+
+            if (fields.Length != 2)
+                throw new ArgumentOutOfRangeException(nameof(value));
+
+            var min = (T)Convert.ChangeType(fields[0], typeof(T), null);
+            var max = (T)Convert.ChangeType(fields[1], typeof(T), null);
+
+            return new MinMax<T>(min, max);
+        }
+
+        public bool Equals(MinMax<T> other) =>
+            MinValue.Equals(other.MinValue) && MaxValue.Equals(other.MaxValue);
+    }
+}

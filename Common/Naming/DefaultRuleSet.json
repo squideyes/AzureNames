@@ -1,0 +1,126 @@
+{
+  "name": "Default",
+  "fields": {
+    "BizUnit": {
+      "values": [
+        "fin",
+        "mktg",
+        "corp"
+      ]
+    },
+    "Environ": {
+      "values": [
+        "sbx",
+        "dev",
+        "tst",
+        "stg",
+        "prd"
+      ]
+    },
+    "Region": {
+      "values": [
+        "eastus",
+        "eastus2",
+        "westus"
+      ]
+    },
+    "TwoDigit": {
+      "regex": "^\\d{2}$"
+    },
+    "ThreeDigit": {
+      "regex": "^\\d{3}$"
+    },
+    "MiscText": {
+      "regex": "^[a-z][a-z0-9]*$"
+    }
+  },
+  "rules": {
+    "ManagementGroup": {
+      "template": "{NameCode}{BizUnit}{Environ?}",
+      "samples": [
+        "mg-mktg",
+        "mg-fin",
+        "mg-corp-prd"
+      ]
+    },
+    "Subscription": {
+      "template": "{BizUnit}{Environ}{TwoDigit?}",
+      "samples": [
+        "fin-sbx",
+        "corp-stg-01"
+      ]
+    },
+    "ResourceGroup": {
+      "template": "{NameCode}{BizUnit}{MiscText}{Environ}{TwoDigit?}",
+      "samples": [
+        "rg-mktg-sharepoint-prd-01",
+        "rg-mktg-lookupsvc-stg",
+        "rg-mktg-aadb2c-dev-02"
+      ]
+    },
+    "WindowsVM": {
+      "samples": [
+        "vmnavigator001",
+        "vmsqlnode001",
+        "vmhadoop001",
+        "vmsharepoint001"
+      ]
+    },
+    "LinuxVM": {
+      "template": "{NameCode}{BizUnit}{MiscText}{Region}{Environ}{ThreeDigit?}",
+      "samples": [
+        "vm-corp-navigator-westus-dev-001",
+        "vm-corp-sharepoint-westus-dev",
+        "vm-corp-sqlnode-westus-stg-001",
+        "vm-corp-hadoop-westus-tst-001"
+      ]
+    },
+    "StorageAccount": {
+      "regex": "^[a-z][a-z0-9]{2,23}$",
+      "samples": [
+        "navigatordata001",
+        "emissionsoutput001"
+      ]
+    },
+    "VirtualNetwork": {
+      "template": "{NameCode}{Environ}{Region}{ThreeDigit?}",
+      "samples": [
+        "vnet-stg-eastus2-001",
+        "vnet-prd-westus",
+        "vnet-dev-eastus2-001"
+      ]
+    },
+    "Subnet": {
+      "template": "{NameCode}{Environ}{Region}{ThreeDigit?}",
+      "samples": [
+        "snet-tst-eastus2-001",
+        "snet-prd-westus-001",
+        "snet-stg-eastus2-001"
+      ]
+    },
+    "NetworkInterface": {
+      "template": "{NameCode}{TwoDigit}{MiscText}{Environ}{ThreeDigit?}",
+      "samples": [
+        "nic-01-dc1-stg-001",
+        "nic-02-vmhadoop1-prd",
+        "nic-02-vmtest1-tst-001"
+      ]
+    },
+    "NetworkSecurityGroup": {
+      "template": "{NameCode}{MiscText}{ThreeDigit}",
+      "samples": [
+        "nsg-weballow-001",
+        "nsg-rdpallow-001",
+        "nsg-sqlallow-001",
+        "nsg-dnsblocked-001"
+      ]
+    },
+    "PublicIPAddress": {
+      "template": "{NameCode}{MiscText}{Region}{Environ}{ThreeDigit}",
+      "samples": [
+        "pip-dc1-eastus2-stg-001",
+        "pip-hadoop-westus-stg-001"
+      ]
+    }
+  }
+}
